@@ -1,7 +1,7 @@
 # Site settings
 baseURL = "https://helpforchristmas.com"
 languageCode = "en-US"
-title = "Help Kids For Christams"
+title = "Help Kids for Christams"
 theme = "hugo-split-theme"
 disableKinds = ["section", "taxonomy", "RSS", "sitemap"]
 disableHugoGeneratorInject = true
