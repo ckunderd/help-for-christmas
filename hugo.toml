@@ -5,6 +5,7 @@ title = "Help Kids For Christams"
 theme = "hugo-split-theme"
 disableKinds = ["section", "taxonomy", "RSS", "sitemap"]
 disableHugoGeneratorInject = true
+publishDir = "docs"
 
 # Local preview mode
 relativeURLs = true
