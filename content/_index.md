@@ -8,12 +8,12 @@ This holiday season, Advocate has partnered with multiple trusted local organiza
 ## How it works:
 
 1. **Click the Start Here link**  
-2. **Click Create Account**  
-3. **Click Register as Donor**  
-4. **Click View Opportunities**  
-5. **Select a family and donate!** 
+2. **View Family Needs**  
+3. **Click Learn More and Donate on the Family You Want to Support**  
+4. **Create Account Or Login**  
+5. **Sponsor the Family** 
 
-{{< button url="https://advocatewithus.com/e-community/programs/raising-hope?referralSource=GT2024" class="btn-primary" target="_blank">}}🔗 **START HERE**{{< /button >}}
+{{< button url="https://advocatewithus.com/e-community/programs/raising-hope/sponsor?referralSource=HELP" class="btn-primary" target="_blank">}}🔗 **START HERE**{{< /button >}}
 
 
 ---

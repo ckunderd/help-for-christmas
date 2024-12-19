@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "organization"
+      },
+      {
+        "type": "text",
+        "name": "program"
+      },
+      {
+        "type": "text",
+        "name": "skip"
+      },
+      {
+        "type": "text",
+        "name": "take"
+      },
+      {
+        "type": "text",
+        "name": "sortby"
+      }
+    ]
+  },
+  "exec": {}
+}

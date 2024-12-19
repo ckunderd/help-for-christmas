@@ -1,0 +1,16 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "page": "index",
+      "routeType": "page",
+      "layout": "main"
+    },
+    {
+      "path": "/wishlists/:organization/:program",
+      "page": "partials/wishlist-table/index",
+      "name": "Wishlists",
+      "layout": "main"
+    }
+  ]
+}

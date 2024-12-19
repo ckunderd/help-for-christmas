@@ -1,0 +1,110 @@
+<!-- Wappler include fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="wishlists_table" appconnect="local" components="{dmxBootstrap5TableGenerator:{},dmxBootstrap5Modal:{},dmxFormatter:{},dmxBootstrap5PagingGenerator:{},dmxStateManagement:{}}" head-page="layouts/main" -->
+<meta name="ac:route" content="/wishlists/:organization/:program">
+
+<script>
+    // Custom formatter to calculate the ceiling of a number
+    dmx.Formatter('number', 'ceil', function (value) {
+        return Math.ceil(value);
+    });
+</script>
+
+<!-- Pagination State -->
+<dmx-value id="currentPage" value="1"></dmx-value>
+<dmx-value id="recordsPerPage" value="20"></dmx-value>
+
+<!-- Server Connect with Pagination -->
+<dmx-serverconnect id="wishlists" url="/api/wishlists/list" dmx-param:organization="query.organization" dmx-param:program="query.program" dmx-param:skip="(currentPage.value - 1) * recordsPerPage.value" dmx-param:take="recordsPerPage.value" dmx-on:start="preloader1.show()" dmx-param:sortBy="'+recipient.household.shortId'" dmx-on:done="preloader1.hide()">
+</dmx-serverconnect>
+
+<h3>Remaining Sponsorships: {{wishlists.data.wishlists.data.totalItems}}</h3>
+
+<div class="table-responsive d-none d-md-block">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Household</th>
+                <th>Household Size</th>
+                <th>Recipient</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th>Circumstances</th>
+                <th>Donation Needed</th>
+            </tr>
+        </thead>
+        <tbody is="dmx-repeat" dmx-bind:repeat="wishlists.data.wishlists.data.data" id="tableRepeat1">
+            <tr>
+                <td dmx-text="parentWishlist.household.shortId"></td>
+                <td dmx-text="householdTotal"></td>
+                <td dmx-text="recipient.firstName"></td>
+                <td dmx-text="recipient.gender"></td>
+                <td dmx-text="recipient.age"></td>
+                <td>
+                    <button class="btn btn-primary btn-sm" dmx-on:click="modalCircumstances.show(); varCircumstances.setValue(parentWishlist.circumstances.stripTags())">
+                        View Details
+                    </button>
+                </td>
+                <td dmx-text="'$'+totalValueInUsd+'.00'"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Stacked View for Small Screens -->
+<div class="d-md-none">
+    <div is="dmx-repeat" dmx-bind:repeat="wishlists.data.wishlists.data.data" class="card mb-2">
+        <div class="card-body">
+            <h5 class="card-title">Household: <span dmx-text="parentWishlist.household.shortId"></span></h5>
+            <p class="card-text">
+                <strong>Household Size:</strong> <span dmx-text="householdTotal"></span><br>
+                <strong>Recipient:</strong> <span dmx-text="recipient.firstName"></span><br>
+                <strong>Gender:</strong> <span dmx-text="recipient.gender"></span><br>
+                <strong>Age:</strong> <span dmx-text="recipient.age"></span><br>
+                <strong>Donation Needed:</strong> <span dmx-text="'$'+totalValueInUsd+'.00'"></span>
+            </p>
+            <button class="btn btn-primary btn-sm" dmx-on:click="modalCircumstances.show(); varCircumstances.setValue(parentWishlist.circumstances.stripTags())">
+                View Details
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Responsive Pagination -->
+<nav aria-label="Table pagination" class="mt-3">
+    <ul class="pagination justify-content-center flex-wrap">
+        <!-- Previous Button -->
+        <li class="page-item" dmx-class:disabled="currentPage.value <= 1">
+            <a class="page-link" href="#" dmx-on:click="currentPage.setValue(currentPage.value - 1); wishlists.load()">Previous</a>
+        </li>
+
+        <!-- Page Numbers -->
+        <li class="page-item d-none d-sm-block" dmx-repeat:page="(wishlists.data.wishlists.data.totalItems / recordsPerPage.value).ceil()" dmx-class:active="($index + 1) == currentPage.value">
+            <a class="page-link" href="#" dmx-on:click="currentPage.setValue($index + 1); wishlists.load()">
+                {{ $index + 1 }}
+            </a>
+        </li>
+
+        <!-- Next Button -->
+        <li class="page-item" dmx-class:disabled="currentPage.value >= (wishlists.data.wishlists.data.totalItems / recordsPerPage.value).ceil()">
+            <a class="page-link" href="#" dmx-on:click="currentPage.setValue(currentPage.value + 1); wishlists.load()">Next</a>
+        </li>
+    </ul>
+</nav>
+
+<!-- Modal -->
+<dmx-value id="varCircumstances"></dmx-value>
+<div class="modal fade" id="modalCircumstances" is="dmx-bs5-modal" tabindex="-1" aria-labelledby="modalCircumstancesLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCircumstancesLabel">Household Circumstances</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p dmx-text="varCircumstances.value"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

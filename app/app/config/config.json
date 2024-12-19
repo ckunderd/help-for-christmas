@@ -1,0 +1,7 @@
+{
+  "debug": false,
+  "secret": "JuLvUSOMY9OZEML",
+  "env": {
+    "PROD_API": "https://api.advocatewithus.com"
+  }
+}
